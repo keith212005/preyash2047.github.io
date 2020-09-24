@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><html>
+<head>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+  <!-- Load TensorFlow.js. This is required to use MobileNet. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"></script>
+  <!-- Load the MobileNet model. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+
+  <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+  <img id="img" crossorigin src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRMk8hWnYtdPd2VxlVU02Qf9VwPtcsW9yVDRQ&usqp=CAU" ></img>
+
+  <!-- Place your code in the script tag below. You can also use an external .js file -->
+  <script>
+    const img = document.getElementById('img');
+    // Load the model.
+    (async () =>{
+      const model = await mobilenet.load()
+      const predictions = await model.classify(img)
+        for (const [key, value] of Object.entries(predictions)) {
+          console.log(`${key}: ${value}`);
+          if(`${key}`==0) {
+            $("#predicted").text(`${value.className}`)
+            $("#confidence").text("Confidence :   "+`${value.probability}`)
+          }
+        }
+    })()
+  </script>
+
+<h3 id="predicted"></h3>
+<h3 id="confidence"></h3>
+
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
